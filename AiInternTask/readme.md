@@ -10,6 +10,70 @@ This project implements a pipeline for dynamically summarizing PDF documents and
 - **MongoDB Storage**: Store PDF metadata, summaries, and keywords in MongoDB.
 - **Concurrency**: Process multiple PDFs concurrently using Python's `concurrent.futures` for faster performance.
 
+## Explanation of the Solution
+
+This project implements a **PDF Summarization and Keyword Extraction Pipeline** that processes PDF files, generates summaries, extracts keywords, and stores the results in a MongoDB database. The solution leverages concurrency to process multiple PDF files simultaneously, making it efficient even when dealing with a large number of documents.
+
+### Key Components:
+
+1. **PDF Ingestion**:
+   - The pipeline starts by reading all PDF files from a specified folder.
+   - The file paths and metadata (e.g., file size, document length) are stored in MongoDB.
+
+2. **Dynamic Summarization**:
+   - The pipeline categorizes each PDF document as **short**, **medium**, or **long** based on the number of pages.
+   - A dynamic summarization method is used, where:
+     - **Short documents** receive concise summaries (1-2 sentences).
+     - **Medium documents** receive summaries of medium length (3-5 sentences).
+     - **Long documents** get detailed summaries (5-7 sentences).
+   - The summary generation process involves tokenizing the document’s text into sentences and ranking them based on the frequency of important words.
+
+3. **Keyword Extraction**:
+   - For each document, the most frequent and meaningful words are extracted as keywords.
+   - Common stopwords (like "the," "and") are excluded to ensure that only significant keywords are included.
+   - Keywords are extracted dynamically based on the content of each PDF.
+
+4. **Concurrency**:
+   - The pipeline uses Python's `concurrent.futures.ThreadPoolExecutor` to process multiple PDF files in parallel.
+   - This enhances the performance of the solution, allowing it to handle large volumes of PDFs concurrently without significant delays.
+
+5. **MongoDB Storage**:
+   - Each PDF’s metadata, summary, and keywords are stored in MongoDB.
+   - The structure of the data stored in MongoDB includes:
+     - **File name**
+     - **File path**
+     - **File size**
+     - **Document category** (short, medium, long)
+     - **Summary** of the document
+     - **Keywords** extracted from the document
+
+### Solution Workflow:
+
+1. **PDF Collection**: 
+   - The pipeline scans a folder for PDFs and records basic metadata about each file.
+
+2. **Text Extraction**: 
+   - Text is extracted from each PDF using the `PyPDF2` library.
+
+3. **Document Categorization**:
+   - Based on the number of pages, the document is categorized as short, medium, or long.
+
+4. **Summarization and Keyword Extraction**:
+   - The pipeline summarizes the document and extracts keywords using the `nltk` library.
+   - The length of the summary is adjusted according to the document category.
+
+5. **Concurrency**:
+   - Multiple documents are processed in parallel using threading, improving the overall processing time.
+
+6. **MongoDB Integration**:
+   - The extracted metadata, summaries, and keywords are stored in MongoDB in a well-structured format for future retrieval and analysis.
+
+### Why This Solution?
+- **Efficiency**: By using concurrency, the pipeline can process multiple PDF documents simultaneously, making it scalable and fast.
+- **Dynamic Summarization**: The summarization process is flexible and adapts based on the document's length, ensuring that users get relevant and concise information.
+- **Keyword Extraction**: Keywords provide a quick way to identify the core topics of a document, making the solution useful for summarizing large datasets.
+- **Persistence with MongoDB**: Storing the results in MongoDB ensures that the information is easily accessible and can be further queried or analyzed.
+
 ## Installation
 
 1. Clone the repository:
