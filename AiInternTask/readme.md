@@ -74,6 +74,18 @@ This project implements a **PDF Summarization and Keyword Extraction Pipeline** 
 - **Keyword Extraction**: Keywords provide a quick way to identify the core topics of a document, making the solution useful for summarizing large datasets.
 - **Persistence with MongoDB**: Storing the results in MongoDB ensures that the information is easily accessible and can be further queried or analyzed.
 
+## Performance Report
+
+### Performance Metrics:
+Here are the performance metrics observed during testing:
+
+| Test Type                  | Processing Time | Memory Usage | CPU Usage |
+|----------------------------|----------------|--------------|-----------|
+| Single PDF Processing       | 2.80 seconds   | 145.02 MB    | 0.00 %    |
+| Concurrent Processing (3 PDFs) | 5.55 seconds   | 146.43 MB    | 0.00 %    |
+
+This report highlights the efficiency of the pipeline in terms of speed and resource utilization, showcasing how the application performs with single and multiple PDF files.
+
 ## Installation
 
 1. Clone the repository:
