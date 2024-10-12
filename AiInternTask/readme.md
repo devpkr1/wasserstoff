@@ -15,7 +15,6 @@ This project implements a pipeline for dynamically summarizing PDF documents and
 1. Clone the repository:
    ```bash
    git clone https://github.com/your-username/pdf-summarization-pipeline.git
-
     
  2. Navigate into the project folder:
     ```bash
